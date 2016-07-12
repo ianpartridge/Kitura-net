@@ -79,7 +79,7 @@ public class SPIUtils {
             let min = Int(components.minute)
             let sec = Int(components.second)
         #else
-            let calendar = Calendar.current()
+            let calendar = Calendar.current
             calendar.timeZone = TimeZone(name: "UTC")!
             let temp = calendar.components([.year, .month, .day, .hour, .minute, .second, .weekday], from: date as Date)
             let components = temp

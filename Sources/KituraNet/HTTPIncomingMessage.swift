@@ -167,7 +167,7 @@ public class HTTPIncomingMessage : HTTPParserDelegate, SocketReader {
     /// - Parameter callback: (HTTPParserErrorType) -> Void closure
     ///
     func parse (_ callback: (HTTPParserErrorType) -> Void) {
-        guard let parser = httpParser where status == .initial else {
+        guard let parser = httpParser, status == .initial else {
             freeHTTPParser()
             callback(.internalError)
             return
@@ -234,7 +234,7 @@ public class HTTPIncomingMessage : HTTPParserDelegate, SocketReader {
     public func read(into data: NSMutableData) throws -> Int {
         var count = bodyChunk.fill(data: data)
         if count == 0 {
-            if let parser = httpParser where status == .headersComplete {
+            if let parser = httpParser, status == .headersComplete {
                 do {
                     ioBuffer!.length = 0
                     count = try helper!.readHelper(into: ioBuffer!)

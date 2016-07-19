@@ -64,7 +64,7 @@ public class FastCGIServerResponse : ServerResponse {
             return HTTPStatusCode(rawValue: status)
         }
         set (newValue) {
-            if let newValue = newValue where !startFlushed {
+            if let newValue = newValue, !startFlushed {
                 status = newValue.rawValue
             }
         }

@@ -663,6 +663,7 @@ private class CurlInvoker {
             return rc
         }
 
+        guard let copyOfDelegate = delegate else { fatalError("Delegate is nil") }
         withUnsafeMutablePointer(to: &delegate) {ptr in
             self.prepareHandle(ptr)
 
@@ -689,7 +690,7 @@ private class CurlInvoker {
                                     _ = curlHelperSetOptInt(handle, CURLOPT_HTTPGET, 1)
                                 }
                                 redirected = true
-                                delegate?.prepareForRedirect()
+                                copyOfDelegate.prepareForRedirect()
                             }
                             else {
                                 redirected = false
